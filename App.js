@@ -9,6 +9,9 @@ import {
 } from "react-native";
 
 export default function App() {
+  const innerFunction = () => {
+    Alert.alert("팝업 알람입니다!!");
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.textContainer}>
@@ -18,9 +21,7 @@ export default function App() {
           style={styles.buttonStyle}
           title="버튼입니다 "
           color="#f194ff"
-          onPress={function () {
-            Alert.alert("팝업 알람입니다!!");
-          }}
+          onPress={innerFunction}
         />
         {/* ES6 문법으로 배웠던 화살표 함수로 연결 할 수도 있습니다. */}
         <Button
@@ -28,7 +29,7 @@ export default function App() {
           title="버튼입니다 "
           color="#F19400"
           onPress={() => {
-            Alert.alert("팝업 알람입니다!!");
+            innerFunction();
           }}
         />
       </View>

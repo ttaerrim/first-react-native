@@ -44,8 +44,33 @@ export default function App() {
       </ScrollView>
       <View style={styles.containerFour}>
         {tip.map((content, i) => {
-          return (
-            <View style={styles.card} key={i}>
+          return i % 2 == 0 ? (
+            <View style={styles.cardEven} key={i}>
+              <Image
+                source={{
+                  uri: content.image,
+                }}
+                // 사용설명서에 나와 있는 resizeMode 속성 값을 그대로 넣어 적용합니다
+                resizeMode={"cover"}
+                style={styles.imageContainer}
+              />
+              <View style={styles.textContainer}>
+                <Text
+                  numberOfLines={1}
+                  style={{ fontSize: 19, fontWeight: "bold" }}
+                >
+                  {content.title}
+                </Text>
+                <Text numberOfLines={3} style={{ fontSize: 16 }}>
+                  {content.desc}
+                </Text>
+                <Text style={{ fontSize: 11, color: "gray" }}>
+                  {content.date}
+                </Text>
+              </View>
+            </View>
+          ) : (
+            <View style={styles.cardOdd} key={i}>
               <Image
                 source={{
                   uri: content.image,
@@ -150,13 +175,23 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginTop: 20,
   },
-  card: {
-    marginTop: 5,
-    marginLeft: 10,
+  cardEven: {
+    flex: 1,
     flexDirection: "row",
-    paddingBottom: 15,
+    margin: 10,
+    backgroundColor: "#FFFED7",
+    borderRadius: 20,
     borderBottomWidth: 0.5,
     borderBottomColor: "#eee",
+    paddingBottom: 10,
+  },
+  cardOdd: {
+    flex: 1,
+    flexDirection: "row",
+    margin: 10,
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#eee",
+    paddingBottom: 10,
   },
   imageContainer: {
     flex: 1,

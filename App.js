@@ -6,6 +6,8 @@ import {
   SafeAreaView,
   Image,
   ScrollView,
+  Touchable,
+  TouchableOpacity,
 } from "react-native";
 
 export default function App() {
@@ -25,44 +27,42 @@ export default function App() {
           style={styles.imageStyle}
         />
       </View>
-      <ScrollView
-        style={styles.containerThree}
-        horizontal={true}
-        contentContainerStyle={{ flexGrow: 1, justifyContent: "flex-end" }}
-      >
-        <View style={styles.button1}>
+      <ScrollView style={styles.containerThree} horizontal>
+        <TouchableOpacity style={styles.button1}>
           <Text style={styles.buttonText}>생활</Text>
-        </View>
-        <View style={styles.button2}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button2}>
           <Text style={styles.buttonText}>재테크</Text>
-        </View>
-        <View style={styles.button3}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button3}>
           <Text style={styles.buttonText}>반려견</Text>
-        </View>
-        <View style={styles.button4}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button4}>
           <Text style={styles.buttonText}>꿀팁</Text>
-        </View>
+        </TouchableOpacity>
       </ScrollView>
       <View style={styles.containerFour}>
-        <Image
-          source={{
-            uri: "https://firebasestorage.googleapis.com/v0/b/sparta-image.appspot.com/o/lecture%2Fpizza.png?alt=media&token=1a099927-d818-45d4-b48a-7906fd0d2ad3",
-          }}
-          // 사용설명서에 나와 있는 resizeMode 속성 값을 그대로 넣어 적용합니다
-          resizeMode={"cover"}
-          style={styles.imageContainer}
-        />
-        <View style={styles.textContainer}>
-          <Text style={{ fontSize: 19, fontWeight: "bold" }}>
-            먹다 남은 피자를 촉촉하게!
-          </Text>
-          <Text numberOfLines={3} style={{ fontSize: 16 }}>
-            먹다 남은 피자는 수분이 날라가기 때문에 처음처럼 맛있게 먹을 수
-            없는데요. 이럴 경우 그릇에 물을 받아 전자레인지 안에서 1분 30초에서
-            2분 정도 함께 돌려주면 촉촉하게 먹을 수 있습니다. 물이 전자레인지
-            안에서 수증기를 일으키고, 피자에 촉촉함을 더해줍니다.
-          </Text>
-          <Text style={{ fontSize: 11, color: "gray" }}>2020.09.09</Text>
+        <View style={styles.card}>
+          <Image
+            source={{
+              uri: "https://firebasestorage.googleapis.com/v0/b/sparta-image.appspot.com/o/lecture%2Fpizza.png?alt=media&token=1a099927-d818-45d4-b48a-7906fd0d2ad3",
+            }}
+            // 사용설명서에 나와 있는 resizeMode 속성 값을 그대로 넣어 적용합니다
+            resizeMode={"cover"}
+            style={styles.imageContainer}
+          />
+          <View style={styles.textContainer}>
+            <Text style={{ fontSize: 19, fontWeight: "bold" }}>
+              먹다 남은 피자를 촉촉하게!
+            </Text>
+            <Text numberOfLines={3} style={{ fontSize: 16 }}>
+              먹다 남은 피자는 수분이 날라가기 때문에 처음처럼 맛있게 먹을 수
+              없는데요. 이럴 경우 그릇에 물을 받아 전자레인지 안에서 1분
+              30초에서 2분 정도 함께 돌려주면 촉촉하게 먹을 수 있습니다. 물이
+              전자레인지 안에서 수증기를 일으키고, 피자에 촉촉함을 더해줍니다.
+            </Text>
+            <Text style={{ fontSize: 11, color: "gray" }}>2020.09.09</Text>
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -71,10 +71,11 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
+    backgroundColor: "white",
   },
   containerOne: {
-    margin: 10,
+    marginLeft: 15,
+    marginTop: 10,
     backgroundColor: "white",
   },
   titleText: {
@@ -82,20 +83,23 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   containerTwo: {
-    flexDirection: "row",
+    flexDirection: "column",
     backgroundColor: "white",
-    height: "40%",
+    height: 200,
+    marginBottom: 20,
   },
   imageStyle: {
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: "95%",
+    height: 200,
     borderRadius: 10,
+    marginTop: 20,
+    alignSelf: "center",
   },
   containerThree: {
     backgroundColor: "white",
-    flex: 1,
+    marginTop: 20,
+    marginLeft: 10,
+    height: 60,
   },
   button1: {
     width: 100,
@@ -137,6 +141,10 @@ const styles = StyleSheet.create({
   },
   containerFour: {
     backgroundColor: "white",
+    marginTop: 20,
+  },
+  card: {
+    marginLeft: 10,
     flexDirection: "row",
   },
   imageContainer: {

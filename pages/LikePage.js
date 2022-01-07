@@ -31,8 +31,7 @@ export default function LikePage({ navigation, route }) {
       .once("value")
       .then((snapshot) => {
         let tip = snapshot.val();
-        let tip_list = Object.values(tip);
-        if (tip_list && tip_list.length > 0) {
+        if (tip.length > 0) {
           setTip(tip);
           setReady(false);
         }
@@ -46,6 +45,7 @@ export default function LikePage({ navigation, route }) {
   return (
     <View style={styles.container}>
       {/* 하나의 카드 영역을 나타내는 View */}
+
       {tip.map((content, i) => {
         return (
           <LikeCard

@@ -17,6 +17,13 @@ import { StatusBar } from "expo-status-bar";
 import * as Location from "expo-location";
 import axios from "axios";
 import { firebase_db } from "../firebaseConfig";
+import {
+  setTestDeviceIDAsync,
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded,
+} from "expo-ads-admob";
 
 export default function MainPage({ navigation, route }) {
   //useState 사용법
@@ -38,28 +45,29 @@ export default function MainPage({ navigation, route }) {
   const [ready, setReady] = useState(true);
 
   useEffect(() => {
-    //헤더의 타이틀 변경
     navigation.setOptions({
       title: "나만의 꿀팁",
     });
-    firebase_db
-      .ref("/tip")
-      .once("value")
-      .then((snapshot) => {
-        console.log("파이어베이스에서 데이터 가져왔습니다!!");
-        let tip = snapshot.val();
-        setState(tip);
-        setCateState(tip);
-        getLocation();
-        setReady(false);
-      });
-    // setTimeout(()=>{
-    //     let tip = data.tip;
-    //     setState(tip)
-    //     setCateState(tip)
-    //     getLocation()
-    //     setReady(true)
-    // },1000)
+    //뒤의 1000 숫자는 1초를 뜻함
+    //1초 뒤에 실행되는 코드들이 담겨 있는 함수
+    setTimeout(() => {
+      firebase_db
+        .ref("/tip")
+        .once("value")
+        .then((snapshot) => {
+          console.log("파이어베이스에서 데이터 가져왔습니다!!");
+          let tip = snapshot.val();
+
+          setState(tip);
+          setCateState(tip);
+          getLocation();
+          setReady(false);
+        });
+      // getLocation()
+      // setState(data.tip)
+      // setCateState(data.tip)
+      // setReady(false)
+    }, 1000);
   }, []);
 
   const getLocation = async () => {
@@ -190,6 +198,25 @@ export default function MainPage({ navigation, route }) {
           return <Card content={content} key={i} navigation={navigation} />;
         })}
       </View>
+      {/* 
+        ca-app-pub-5579008343368676/9202552776
+        ca-app-pub-5579008343368676/6885179499
+      */}
+      {Platform.OS === "ios" ? (
+        <AdMobBanner
+          bannerSize="fullBanner"
+          servePersonalizedAds={true}
+          adUnitID="ca-app-pub-2136591346529936/9566592196"
+          style={styles.banner}
+        />
+      ) : (
+        <AdMobBanner
+          bannerSize="fullBanner"
+          servePersonalizedAds={true}
+          adUnitID="ca-app-pub-2136591346529936/1275494046"
+          style={styles.banner}
+        />
+      )}
     </ScrollView>
   );
 }
@@ -301,5 +328,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
     marginTop: 10,
+  },
+  banner: {
+    width: "100%",
+    height: 100,
   },
 });
